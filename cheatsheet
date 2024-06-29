@@ -106,13 +106,12 @@ cls()
 ```
 ---
 
-Rita en punkt på (x, y) med en specifik färg:
+Sätt en pixel på position (x, y) till en specifik färg:
 ```lua
 pset(x, y, color)
 ```
 
 ---
-
 Rita en linje från (x0, y0) till (x1, y1) med en specifik färg:
 ```lua
 line(x0, y0, x1, y1, color) 
@@ -161,7 +160,7 @@ spr(n, x, y, [w, h], [flip_x], [flip_y])
 ```
 ## Text 
 Skriva text på skärmen vid (x, y) med färg:
-```
+```lua
 print("Hej världen!", x, y, color)
 ```
 ## Färghantering
@@ -180,17 +179,17 @@ Använda en tabell (array) av färgpar för att byta flera färger:
 pal(tbl, [p])
 ``` 
 Sätta genomskinlighet för färg c. Om t är sant, gör färgen genomskinlig; annars inte:
-``` lua
+```lua
 palt(c, [t])  
 ``` 
 ## Ljud 
 Spela upp ljudeffekt n på kanal, startar vid offset och varar i längden:
-``` 
+```lua
 sfx(n, [channel], [offset], [length])
 ``` 
 ## Kartor 
 Rita kartan från cell (cell_x, cell_y) till skärmen vid (sx, sy) med bredd cell_w och höjd cell_h. Lagerspecifikationen avgör vilka lager som ska ritas:
-``` 
+```lua
 map([cell_x], cell_y, [sx, sy], [cell_w, cell_h], [layers])  
 ``` 
 ## Rörelse 
@@ -215,69 +214,57 @@ end
 ``` 
 
 ## Slump 
-Returnera ett slumpmässigt tal mellan 0 och x (eller 0 och 1 om x inte är angivet):
-``` 
+Returnera ett slumpmässigt flyttal mellan 0 och x (eller 0 och 1 om x inte är angivet):
+```lua 
 rnd(x)
 ``` 
 ## Vanliga funktioner i Pico-8-spel 
-``` 
- function _init() 
-
+```lua
+function _init() 
   -- Detta körs en gång när spelet startar 
-
 end 
 ``` 
-``` 
+```lua
  function _update() 
-
-  -- Detta körs 30 gånger per sekund för att uppdatera spelets logik 
-
+  -- Detta körs varje frame för att uppdatera spelet
+  -- Ungefär 30 gånger per sekund 
 end 
 ```
-``` 
+```lua
 function _draw() 
-
-  -- Detta körs 30 gånger per sekund för att rita spelet 
-
+  -- Detta körs 30 gånger per sekund för att rita spelet
+  -- Skillnad från _update() är att _draw() inte uppdaterar spelet
 end 
 ``` 
 ## Exempelprogram 
 
 ### Enkel Spel Loop 
-``` 
+``` lua
 function _init() 
-
   x = 64 
-
   y = 64 
-
 end 
 
 function _update() 
-
     if btn(0) then 
-        x = x - 1 
-    end 
+        x = x - 1
+    end
 
     if btn(1) then 
         x = x + 1 
-    end 
-
+    end
+    
     if btn(2) then 
         y = y - 1 
     end 
 
     if btn(3) then 
         y = y + 1 
-    end 
-
+    end
 end 
 
 function _draw() 
-
   cls() 
-
   spr(1, x, y) 
-
 end
 ``` 
