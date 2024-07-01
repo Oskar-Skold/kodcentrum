@@ -23,7 +23,7 @@ end
 function _draw() 
     -- Rensa skärmen med svart färg och rita ut cirkel 1 
     cls() 
-    circfill(c1_x, c1_y, c1_r, color) 
+    circfill(c1_x, c1_y, c1_r, c1_color) 
 end 
 ```
 
