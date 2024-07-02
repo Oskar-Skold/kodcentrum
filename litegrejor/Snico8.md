@@ -137,3 +137,28 @@ function _draw()
     end
 end
 ```
+
+Om du vill lägga in din egen sprite för huvudet så får du uppdatera `_draw()` funktionen till detta.
+
+```lua
+function _draw()
+    cls()
+    print("Size: " .. #arr, 0, 0, 7)
+    
+    for i=1,#arr do
+        local s = arr[i]
+        
+        -- Huvud Sprite
+        if i == #arr then spr(1, s.x*8, s.y*8)
+
+        -- Resten av kroppen
+        rect(s.x*8, s.y*8, s.x*8+8, s.y*8+8, 7)
+    end
+    
+    rect(food.x*8, food.y*8, food.x*8+8, food.y*8+8, 8)
+
+    if lost then
+        print("You lost!", 60, 60, 7)
+    end
+end
+```
