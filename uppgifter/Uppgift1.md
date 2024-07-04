@@ -11,7 +11,7 @@ Vi ska nu lära oss att koda geometriska former som rör sig och ändrar färg i
 Vi börjar med att rita en cirkel på skärmen. 
 
 I pico-8, ta fram kod-editorn och börja med att skriva följande kod: 
-```
+```lua
 function _init() 
     -- skapa variabler för cirkel 1 
     c1_x = 64 
@@ -36,7 +36,7 @@ end
 ### Steg 2: Ändra cirkelns position 
 
 Nu ska vi få cirkel 1 att röra sig slumpmässigt. Lägg till följande kod längst ned: 
-```
+```lua
 function _update() 
     -- Ändra positionen för cirkel 1 slumpmässigt 
     c1_x = c1_x + rnd({-1, 1}) 
@@ -54,7 +54,7 @@ end
 
 Nu ska vi få cirkeln 1 att ändra form och färg slumpmässigt. Uppdatera koden i  ```_update-funktionen``` så här: 
 
-```
+```lua
 function _update() 
     -- Ändra positionen för cirkel 1 slumpmässigt
     c1_x = c1_x + rnd({-1, 1}) 
@@ -77,7 +77,7 @@ end
 
 Låt oss lägga till en fyrkant också! Ändra ```_init-funktionen``` för att lägga till variabler för fyrkanten:
 
-```
+```lua
 function _init() 
     -- skapa variabler för cirkel 1 
     c1_x = 64 
@@ -95,7 +95,7 @@ end
 
 Ändra i ```_draw-funktionen``` för att rita fyrkant 1: 
 
-```
+```lua
 function _draw() 
     -- Rensa skärmen med svart färg 
     cls() 
@@ -109,7 +109,7 @@ end
 ```
 Uppdatera koden i  _update-funktionen för att ändra  position, storlek och färg på fyrkant 1 slumpmässigt: 
 
-```
+```lua
 function _update() 
 -- Ändra positionen för cirkel 1 slumpmässigt 
     c1_x = c1_x + rnd({-1, 1}) 
@@ -138,7 +138,7 @@ end
 Nu har du ett program där både en cirkel och en fyrkant ändrar form, färg och position slumpmässigt! Testa att köra programmet genom att trycka på "Run". 
 
 Här kommer koden i sin helhet: 
-````
+````lua
 function _init() 
     -- skapa variabler för cirkel 1 
     c1_x = 64 
