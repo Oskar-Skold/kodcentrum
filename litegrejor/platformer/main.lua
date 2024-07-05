@@ -2,17 +2,17 @@
 -- pico-8
 
 function _init()
- init_const()
- init_magic()
- initdyn()
+ init_const() -- constants
+ init_magic() -- magic
+ initdyn()    -- dynamic objects
 end
 
 function _update()
  if pl.active then
-  if btn(0) then move(-2, 0) end
-  if btn(1) then move( 2, 0) end
+  if btn(0) then move(-2, 0) end -- left
+  if btn(1) then move( 2, 0) end -- right
 
-  if gravity then
+  if gravity then -- if gravity is on
 
    if btn(2) and check_map(pl.x, pl.y, 0,1,0) 
    then 
@@ -23,7 +23,7 @@ function _update()
    if frm % 1 == 0 then 
     move(0, 4) end
 
-  else
+  else -- if gravity is off
    if btn(2) then move(0,-2) end
    if btn(3) then move(0, 2) end
   end
@@ -44,6 +44,14 @@ function _update()
   objs[coin_col].active = false
   objs[coin_col].show = false
  end
+
+ -- enemy
+ enemy_col = coldyn("enemy")
+ if enemy_col > -1 then
+  -- pl.active = false
+  -- pl.show = false
+ end
+ 
 
  frm += 1
 end
@@ -70,5 +78,6 @@ function _draw()
  end
 
  printText("score: " .. score, 1, 1, 7)
+ 
  updatedyn()
 end

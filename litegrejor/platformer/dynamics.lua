@@ -20,8 +20,6 @@ function drawdyn()
     spr(sprt, o.x, o.y)
    else
     mset(h.gx, h.gy, sprt) end
-  else
-   
   end
  end
 end
@@ -63,9 +61,6 @@ function coldyn(tag)
     (o.active and o.show) then
    local ho = hitb(o.x, o.y)
    local hp = hitb(pl.x, pl.y)
-   
-   -- return the index of the 
-   -- object
    if ho.gx == hp.gx and
       ho.gy == hp.gy then
     return i
@@ -81,7 +76,9 @@ function updatedyn()
   local o = objs[i]
   if o.active then
    if o.moveable then
-    pathmovedyn(i, pl.x, pl.y)
+    if true then 
+     pathmovedyn(i, pl.x, pl.y)
+    end
     if gravity then
      movedyn(i, 0, 4)
     end
@@ -148,9 +145,9 @@ function pathfind(dyn_num, x, y)
    local lowest = lowest_inde(dsts)
    if checks[lowest] then
     st = {"LEFT", "RIGHT", "UP", "DOWN"}
-
+    
     --printText("lowest:"..st[lowest], 1, 128-7, 7)
-
+    
     return lowest
    else
     dsts[lowest] = 9999
@@ -185,16 +182,20 @@ function pathmovedyn(obj_ind,x,y)
  local h = hitb(o.x, o.y)
 
  if nearest == 1 then
-  printText("LEFT", 1, 128-16, 7)
+  --printText("LEFT", 1, 128-16, 7)
   movedyn(obj_ind, -1 * o.speed, 0)
  elseif nearest == 2 then
-  printText("RIGHT", 1, 128-16, 7)
+  --printText("RIGHT", 1, 128-16, 7)
   movedyn(obj_ind, 1 * o.speed, 0)
  elseif nearest == 3 then
-  printText("UP", 1, 128-16, 7)
-  movedyn(obj_ind, 0, -1 * o.speed*12)
+  --printText("UP", 1, 128-16, 7)
+  if gravity then
+   movedyn(obj_ind, 0, -6 * o.speed)
+  else
+   movedyn(obj_ind, 0, -1 * o.speed)
+  end
  elseif nearest == 4 then
-  printText("DOWN", 1, 128-16, 7)
-  movedyn(obj_ind, 0, 1 * o.speed)
+  --printText("DOWN", 1, 128-16, 7)
+  movedyn(obj_ind, 0, 0 * o.speed)
  end
 end

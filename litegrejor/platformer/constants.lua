@@ -2,7 +2,7 @@
 function init_const()
  gravity = true
  debug    = false -- debug mode
- score    = 0 
+ score    = 0
  frm      = 0    -- frame
  background_spr = 4
  pl = {
@@ -13,8 +13,6 @@ function init_const()
   sp = { 1 },    -- sprite list
   an_speed = 10  -- animation speed
  }
- 
- coins = {}
 
  objs = {}
 -- all dynamic objects have the
