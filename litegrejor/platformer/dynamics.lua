@@ -121,7 +121,7 @@ function pathfind(dyn_num, x, y)
  local r = not check_map(o.x,o.y, 1, 0, 0)
  local up= -- no block above, and a block below 
   not check_map(o.x,o.y, 0,-1, 0) and --check_map(o.x,o.y, 0,-1, 0)
-  check_map(o.x,o.y, 0, 1, 0) and o.y % 8 == 0
+  ((check_map(o.x,o.y, 0, 1, 0) and o.y % 8 == 0) or not gravity)
  local d = not check_map(o.x,o.y, 0, 1, 0)
 
  -- pixel coordinates
@@ -139,10 +139,10 @@ function pathfind(dyn_num, x, y)
   local ud = dst(uc.gx, uc.gy, t.gx, t.gy)
   local dd = dst(dc.gx, dc.gy, t.gx, t.gy)
   
-  if debug_mode == 1 and l then print((ld), lc.gx*8, lc.gy*8, 7) end
-  if debug_mode == 1 and r then print((rd), rc.gx*8, rc.gy*8, 7) end
-  if debug_mode == 1 and up then print((ud), uc.gx*8, uc.gy*8, 7) end
-  if debug_mode == 1 and d then print((dd), dc.gx*8, dc.gy*8, 7) end
+  if debug_mode == 1 and l then print(flr(ld), lc.gx*8, lc.gy*8, 7) end
+  if debug_mode == 1 and r then print(flr(rd), rc.gx*8, rc.gy*8, 7) end
+  if debug_mode == 1 and up then print(flr(ud), uc.gx*8, uc.gy*8, 7) end
+  if debug_mode == 1 and d then print(flr(dd), dc.gx*8, dc.gy*8, 7) end
 
   local dsts = {ld, rd, ud, dd}
   local lcs  = {lc, rc, uc, dc}
@@ -214,7 +214,7 @@ function pathmovedyn(obj_ind,x,y)
   end 
  elseif nearest == 4 then
   --printText("DOWN", 1, 128-16, 7)
-  movedyn(obj_ind, 0, 0 * o.speed)
+  movedyn(obj_ind, 0, 1 * o.speed)
  end
  if nearest == 5 then
   if gravity then
