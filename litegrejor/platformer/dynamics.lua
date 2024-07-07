@@ -80,7 +80,7 @@ function updatedyn()
      pathmovedyn(i, pl.x, pl.y)
     end
     if gravity then
-     movedyn(i, 0, 4)
+     movedyn(i, 0, 3)
     end
    end
   end
@@ -90,7 +90,7 @@ end
 -- pathfind from dynamic object
 -- to (x,y)
 function dst(x1, y1, x2, y2)
- return ((x2-x1)^2 + (y2-y1)^2)
+ return sqrt((x2-x1)^2 + (y2-y1)^2)
 end
 
 function lowest_inde(list)
@@ -105,15 +105,26 @@ function lowest_inde(list)
 end
 
 function pathfind(dyn_num, x, y)
+ if debug_mode == 2 then
+  pset(x, y, 7)
+ end
  local o = objs[dyn_num]
  local h = hitb(o.x, o.y)
  local t = hitb(x, y)
  
+ -- check if h is the same as t
+ if h.gx == t.gx and h.gy == t.gy then
+  return -1
+ end 
+ 
  local l = not check_map(o.x,o.y,-1, 0, 0)
  local r = not check_map(o.x,o.y, 1, 0, 0)
- local up= not check_map(o.x,o.y, 0,-1, 0)
+ local up= -- no block above, and a block below 
+  not check_map(o.x,o.y, 0,-1, 0) and --check_map(o.x,o.y, 0,-1, 0)
+  check_map(o.x,o.y, 0, 1, 0) and o.y % 8 == 0
  local d = not check_map(o.x,o.y, 0, 1, 0)
 
+ -- pixel coordinates
  local lc = 
   {gx=h.gx-1, gy=h.gy}
  local rc = 
@@ -123,36 +134,41 @@ function pathfind(dyn_num, x, y)
  local dc = 
   {gx=h.gx, gy=h.gy+1}
 
-  local ld =
-   dst(lc.gx, lc.gy, t.gx, t.gy)
-  local rd =
-   dst(rc.gx, rc.gy, t.gx, t.gy)
-  local ud =
-   dst(uc.gx, uc.gy, t.gx, t.gy)
-  local dd =
-   dst(dc.gx, dc.gy, t.gx, t.gy)
-
-  if debug and l then print(flr(ld), lc.gx*8, lc.gy*8, 7) end
-  if debug and r then print(flr(rd), rc.gx*8, rc.gy*8, 7) end
-  if debug and up then print(flr(ud), uc.gx*8, uc.gy*8, 7) end
-  if debug and d then print(flr(dd), dc.gx*8, dc.gy*8, 7) end
+  local ld = dst(lc.gx, lc.gy, t.gx, t.gy)
+  local rd = dst(rc.gx, rc.gy, t.gx, t.gy)
+  local ud = dst(uc.gx, uc.gy, t.gx, t.gy)
+  local dd = dst(dc.gx, dc.gy, t.gx, t.gy)
+  
+  if debug_mode == 1 and l then print((ld), lc.gx*8, lc.gy*8, 7) end
+  if debug_mode == 1 and r then print((rd), rc.gx*8, rc.gy*8, 7) end
+  if debug_mode == 1 and up then print((ud), uc.gx*8, uc.gy*8, 7) end
+  if debug_mode == 1 and d then print((dd), dc.gx*8, dc.gy*8, 7) end
 
   local dsts = {ld, rd, ud, dd}
   local lcs  = {lc, rc, uc, dc}
   local checks = {l, r, up, d}
-
-  for i=1, #dsts do
-   local lowest = lowest_inde(dsts)
-   if checks[lowest] then
-    st = {"LEFT", "RIGHT", "UP", "DOWN"}
-    
-    --printText("lowest:"..st[lowest], 1, 128-7, 7)
-    
-    return lowest
-   else
-    dsts[lowest] = 9999
+  
+  if not l then dsts[1] = 9999 end
+  if not r then dsts[2] = 9999 end
+  if not up then dsts[3] = 9999 end
+  if not d then dsts[4] = 9999 end
+  
+  local lowest = lowest_inde(dsts)
+  if checks[lowest] then
+   -- if lowest is up
+   if lowest == 3 then
+    if gravity then
+     -- if ld < rd, go left and up
+     if ld < rd then
+      return 5
+     else
+      return 6
+     end
+    end
    end
+   return lowest
   end
+  return -1
 end
 
 -- dynamic object movement
@@ -180,7 +196,9 @@ function pathmovedyn(obj_ind,x,y)
  local nearest = pathfind(obj_ind, x, y)
  local o = objs[obj_ind]
  local h = hitb(o.x, o.y)
-
+ if nearest == -1 then
+  return
+ end
  if nearest == 1 then
   --printText("LEFT", 1, 128-16, 7)
   movedyn(obj_ind, -1 * o.speed, 0)
@@ -188,14 +206,36 @@ function pathmovedyn(obj_ind,x,y)
   --printText("RIGHT", 1, 128-16, 7)
   movedyn(obj_ind, 1 * o.speed, 0)
  elseif nearest == 3 then
-  --printText("UP", 1, 128-16, 7)
   if gravity then
-   movedyn(obj_ind, 0, -6 * o.speed)
+   movedyn(obj_ind, 0, -12)
+   --printText("UP", 1, 128-16, 7)
   else
    movedyn(obj_ind, 0, -1 * o.speed)
-  end
+  end 
  elseif nearest == 4 then
   --printText("DOWN", 1, 128-16, 7)
   movedyn(obj_ind, 0, 0 * o.speed)
  end
+ if nearest == 5 then
+  if gravity then
+   -- go left and up
+   -- left
+   movedyn(obj_ind, 0, -12)
+   movedyn(obj_ind, -2 * o.speed, 0)
+   -- up 1 whole block
+  else
+   movedyn(obj_ind, -1 * o.speed, 0)
+  end
+ end
+ if nearest == 6 then
+  if gravity then
+   -- go right and up
+   -- right
+   movedyn(obj_ind, 0, -12)
+   movedyn(obj_ind, 2 * o.speed, 0)
+   -- up 1 whole block
+  else
+   movedyn(obj_ind, 1 * o.speed, 0)
+  end
+ end 
 end

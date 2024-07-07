@@ -1,8 +1,11 @@
 -- All constants
 function init_const()
- gravity = true
+ game_state = "game"
+ gravity = false
+ debug_mode = 0 -- 0 = off, 1+ = different modes
  debug    = false -- debug mode
  score    = 0
+ health   = 100
  frm      = 0    -- frame
  background_spr = 4
  pl = {
@@ -11,7 +14,8 @@ function init_const()
   x = 8 * 3,     -- start x
   y = 0,         -- start y
   sp = { 1 },    -- sprite list
-  an_speed = 10  -- animation speed
+  an_speed = 10,  -- animation speed
+  speed = 2 -- speed of the player
  }
 
  objs = {}
@@ -51,9 +55,9 @@ function init_const()
    show = true,
    tag = "enemy",
    p = 0,
-   an_speed = 10,
+   an_speed = 2,
    speed = 1,
    moveable = true
- }
+  }
  }
 end
