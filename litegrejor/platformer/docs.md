@@ -25,3 +25,24 @@ notera att detta också kräver att det finns ett objekt med namnet "coin" i spe
    moveable = false -- om objektet kan röra sig (alltså med simpel AI)
   }
   ```
+
+
+
+## Exempel på game over:
+
+Längst upp i draw, under ``cls()`` så kan man skriva detta:
+
+```lua
+ if game_state == "gameover" then
+  printText("game over", 64 - (4*4), 20, 7)
+  return 0
+ end
+```
+
+notera att
+```lua
+ if health < 1 then
+  game_state = "gameover"
+ end
+```
+måste finnas i update för att det ska fungera.

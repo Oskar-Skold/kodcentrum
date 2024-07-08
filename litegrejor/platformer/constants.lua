@@ -39,21 +39,21 @@ function init_const()
 -- start    = gx, gy start position
 
  stand_objs = {
-  { -- coin
+  {
+   tag = "coin",
    sp = {6,7},
    active = true,
    show = true,
-   tag = "coin",
    p = 10,
    an_speed = 10,
    speed = 0,
    moveable = false
   },
   { -- enemy
+   tag = "enemy",
    sp = {17},
    active = true,
    show = true,
-   tag = "enemy",
    p = 0,
    an_speed = 2,
    speed = 1,
