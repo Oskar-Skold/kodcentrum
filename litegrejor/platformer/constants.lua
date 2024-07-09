@@ -8,6 +8,7 @@ function init_const()
  health   = 100
  frm      = 0    -- frame
  background_spr = 4
+ background_col = 6
  pl = {
   show = true,   -- show player
   active = true, -- player active

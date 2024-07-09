@@ -38,7 +38,7 @@ function _update()
 end
 
 function _draw()
- cls()
+ cls(background_col)
 
  render_frame()
 

@@ -101,18 +101,15 @@ function debug_cols()
 end
 
 function alrect(x1, y1, x2, y2, c)
- --rect(x1 - 64, y1 - 64, x2 - 64, y2 - 64, c)
  rect(cam.x + x1 - 64, cam.y + y1 - 64, cam.x + x2 - 64, cam.y + y2 - 64, c)
-
 end
 
 function alrectfill(x1, y1, x2, y2, c)
- --rectfill(x1 - 64, y1 - 64, x2 - 64, y2 - 64, c)
  rectfill(cam.x + x1 - 64, cam.y + y1 - 64, cam.x + x2 - 64, cam.y + y2 - 64, c)
 end
 
 function render_frame()
- rectfill(cam.x - 64, cam.y - 64, cam.x + 64, 128, 12)
+ --rectfill(cam.x - 64, cam.y - 64, cam.x + 64, 128, 12)
 
  map()
 
@@ -127,11 +124,9 @@ function render_frame()
 end
 
 function dsp_health()
- --printText("health: " .. health, 1, 8, 7)
  x_min = 1
  x_max = 80
  xval = health * (x_max - x_min) / 100
- --alrect(1, 1, 1 + health, 1+4, 7)
  alrect(1,1, 82, 7, 7)
  
  local col = 11

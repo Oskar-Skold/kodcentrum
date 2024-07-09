@@ -143,7 +143,7 @@ function pathfind(dyn_num, x, y)
   if debug_mode == 1 and r then print(flr(rd), rc.gx*8, rc.gy*8, 7) end
   if debug_mode == 1 and up then print(flr(ud), uc.gx*8, uc.gy*8, 7) end
   if debug_mode == 1 and d then print(flr(dd), dc.gx*8, dc.gy*8, 7) end
-
+  
   local dsts = {ld, rd, ud, dd}
   local lcs  = {lc, rc, uc, dc}
   local checks = {l, r, up, d}
