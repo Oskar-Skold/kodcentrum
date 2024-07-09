@@ -41,7 +41,7 @@ function _draw()
  cls(background_col)
 
  render_frame()
-
+ 
  printText("score: " .. score, 1, 9, 7)
  dsp_health()
 

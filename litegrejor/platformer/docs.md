@@ -34,12 +34,12 @@ Längst upp i draw, under ``cls()`` så kan man skriva detta:
 
 ```lua
  if game_state == "gameover" then
-  printText("game over", 64 - (4*4), 20, 7)
+  render_screen("gameover",0,7)
   return 0
  end
 ```
 
-notera att
+notera att detta i update behövs.
 ```lua
  if health < 1 then
   game_state = "gameover"

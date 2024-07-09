@@ -164,3 +164,10 @@ function domove()
   move(0, -6)
  end
 end
+
+function render_screen(txt, bg, c)
+ cls(bg)
+ local w = #txt * 4 - 1
+ local h = 5
+ printtext(txt, 64 - w / 2, 64 - h / 2, c)
+end
