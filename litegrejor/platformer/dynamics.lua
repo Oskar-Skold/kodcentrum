@@ -9,8 +9,8 @@ function drawdyn()
   local o = objs[i]
   local h = hitb(o.x, o.y)
   
-  if mget(h.gx, h.gy) ~= background_spr then
-   mset(h.gx, h.gy, 
+  if mget(O.start.gx, o.start.gy) ~= background_spr then
+   mset(o.start.gx, o.start.gy, 
     background_spr) 
   end
   
