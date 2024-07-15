@@ -39,7 +39,11 @@ end
 
 function _draw()
  cls(background_col)
-
+ 
+ if game_state == "gameover" then
+  render_screen("game over",0,7)
+  return 0
+ end
  render_frame()
  
  printText("score: " .. score, 1, 9, 7)
